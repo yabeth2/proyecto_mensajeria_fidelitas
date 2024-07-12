@@ -1,6 +1,6 @@
 # Base de datos de usuarios como lista
 usuarios = []
-
+paquetes= []
 # Mensaje de bienvenida y registro de usuario
 print("===================================================")
 print("         BIENVENIDO A MENSAJERÍA FIDÉLITAS         ")
@@ -40,6 +40,20 @@ while True:
 
                 if opcion_submenu == '1':
                     # Registrar factura electrónica
+                    print("\n================= Seleccione el tipo de cédula =================\n")
+                    print("1. Nacional")
+                    print("2. Extrajera")
+                    print("3. Jurídica")
+                    tipo_cedula = input("Ingrese el número de cédula")
+                    if tipo_cedula == '1':
+                        tipo_cedula_esc = "Nacional"
+                    elif tipo_cedula == '2':
+                        tipo_cedula_esc = "Extranjera"
+                    elif tipo_cedula == '3':
+                        tipo_cedula_esc = "Jurídica"
+                    else:
+                        print("Opcion no válida, se procede a solicitar una cédula nacional")
+                        tipo_cedula_esc = "Nacional"
                     numero_cedula_factura = input("Número de cédula: ")
                     nombre_registrado = input("Nombre registrado: ")
                     numero_telefono_factura = input("Número de Teléfono: ")
@@ -48,6 +62,7 @@ while True:
                     canton_factura = input("Cantón: ")
                     distrito_factura = input("Distrito: ")
                     factura = {
+                        'tipo_cedula': tipo_cedula_esc,
                         'numero_cedula_factura': numero_cedula_factura,
                         'nombre_registrado': nombre_registrado,
                         'numero_telefono_factura': numero_telefono_factura,
@@ -59,9 +74,32 @@ while True:
                     usuario_actual['facturas'] = usuario_actual['facturas'] + [factura]  # Agregar factura a la lista
                     print("Factura registrada con éxito.")
                     
-                #falta el crear paquetes
+                #Crear paquetes
+                elif opcion_submenu == '2':
+                    nombre_destinatario = input("Ingrese nombre del destinatario: ")
+                    telefono_destinatario = input("Ingrese teléfono del destinatario: ")
+                    numeroCedula_destinatario = input("Ingrese el número de cédula del destinatario: ")
+                    peso_paquete = input("Ingrese el peso del paquete en kilogramos: ")
+                    cobro_contra_entrega = input("Ingrese el monto a contra entrega en colones: ")
+                
+                    paquetes = {
+                        'nombre_destinatario': nombre_destinatario,
+                        'telefono_destinatario': telefono_destinatario,
+                        'numeroCedula_destinatario': numeroCedula_destinatario,
+                        'peso_paquete': peso_paquete,
+                        'cobro_contra_entrega': cobro_contra_entrega
+                   }
+                if 'paquetes' not in usuario_actual: 
+                    usuario_actual['paquetes'] = []
+
+                usuario_actual['paquetes'] = usuario_actual['paquetes'] + [paquetes]
+                        
+                print("El paquete fue registrado con exito")
+                
+
+                    
                  
-                elif opcion_submenu == '3':
+                if opcion_submenu == '3':
                     # Salir del submenú de usuario y volver al menú principal
                     break
                 
@@ -74,10 +112,14 @@ while True:
         # Registrar usuario
         correo_usuario = input("Correo Electrónico: ")
         nombre_comercio_usuario = input("Nombre del comercio: ")
+        numero_tel_comercio = input ("Número telefónico del comercio: ")
+        nombre_propietario = input("Nombre del propietario del local: ")
         locacion_usuario = input("Ubicación del local: ")
         nuevo_usuario = {
             'correo_usuario': correo_usuario,
             'nombre_comercio_usuario': nombre_comercio_usuario,
+            'numero_tel_comercio' : numero_tel_comercio,
+            'nombre_propietario': nombre_propietario,
             'locacion_usuario': locacion_usuario,
             'facturas': [],
             'paquetes': []
@@ -92,5 +134,7 @@ while True:
         print("         Gracias por usar Fidélitas. ¡Hasta pronto!      ")
         print("===================================================\n")
         break
+    else:
+        print("\nOpción no válida, por favor ingrese una ópcion disponible")
 
 

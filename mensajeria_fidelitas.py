@@ -40,8 +40,9 @@ while True:
                 print("\n================= Menú de Usuario =================\n")
                 print("1. Registrar factura electrónica")
                 print("2. Crear paquete")
-                print("3. Volver al menú principal")
-                opcion_submenu = input("\nSeleccione una opción (1/2/3): ")
+                print("3. Rastreo de paquetes")
+                print("4. Volver al menú principal")
+                opcion_submenu = input("\nSeleccione una opción (1/2/3/4): ")
 
                  # Registrar factura electrónica                    
                 if opcion_submenu == '1':
@@ -91,22 +92,47 @@ while True:
                     numero_cedula_destinatario = input("Número de cédula del destinatario: ")
                     peso_paquete = input("Peso del paquete (kg): ")
                     cobro_contra_entrega = input("Monto a cobrar contra entrega (colones): ")
+                    numero_guia = telefono_destinatario + numero_cedula_destinatario
 
                     paquete = {
                         'nombre_destinatario': nombre_destinatario,
                         'telefono_destinatario': telefono_destinatario,
                         'numero_cedula_destinatario': numero_cedula_destinatario,
                         'peso_paquete': peso_paquete,
-                        'cobro_contra_entrega': cobro_contra_entrega
+                        'cobro_contra_entrega': cobro_contra_entrega,
+                        'estado': 'creado',
+                        'numero_guia':numero_guia
                     }
                     usuario_actual['paquetes'] += [paquete]  # Agregar paquete a la lista
                     
                     print(borde_superior)                
                     print(" " * 17 + "Paquete creado con éxito.")
+                    print(salto_linea)
+                    print("Numero de guia: " + numero_guia)
+                    print("Informacion del Destinatario:")
+                    print("Nombre:" + nombre_destinatario)
+                    print("Numero de telefono: " + telefono_destinatario)
+                    if cobro_contra_entrega:
+                        print("Monto del Cobro: " + cobro_contra_entrega)
+                    else:
+                        print("Monto del Cobro: 0")
                     print(borde_inferior)
                     
-                # Salir del submenú de usuario y volver al menú principal
+                #Rastrear paquete
                 elif opcion_submenu == '3':
+                    numero_guia_buscado = input("Ingrese el numero de guìa: ")
+                    paquete_encontrado = ''
+
+                    # Recorre la lista de paquetes del usuario actual para encontrar el paquete con el numero de guia buscado
+                    for paquete in usuario_actual['paquetes']:
+                        if paquete['numero_guia'] == numero_guia_buscado:
+                            paquete_encontrado = paquete
+                            break;
+                    
+                    #logica para mostrar el estado:
+                        
+                # Salir del submenú de usuario y volver al menú principal
+                elif opcion_submenu == '4':
                     break
                 # Respuesta al digitar un valor no disponible
                 else:

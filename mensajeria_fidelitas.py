@@ -129,7 +129,8 @@ def crear_paquete(usuario_actual):
     else:
         print("Monto del Cobro: 0")
     print(borde_inferior)
-
+#----------------------------------------------------------------------------------------------------------------
+import random
 def rastrear_paquete(usuario_actual):
     numero_guia_buscado = input("Ingrese el número de guía: ")
     paquete_encontrado = ''
@@ -138,6 +139,13 @@ def rastrear_paquete(usuario_actual):
         if paquete['numero_guia'] == numero_guia_buscado:
             paquete_encontrado = paquete
             break
+    if paquete_encontrado:
+        estado =  ["Creado", "Recolectado", "Entrega fallida", "Entregado"]
+        estado_paquete = random.choice(estado)
+        print(f"El estado del paquete {numero_guia_buscado} es: {estado_paquete}")   
+    else: 
+        print("Paquete no encontrado")
+#------------------------------------------------------------------------------------------------------------------        
     
 def registrar_usuario():
     global usuarios

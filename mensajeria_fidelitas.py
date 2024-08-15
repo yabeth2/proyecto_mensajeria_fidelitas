@@ -157,9 +157,13 @@ def registrar_usuario():
             print(salto_linea)
     
     nombre_comercio_usuario = input("Nombre del comercio: ")
+    print (f"el nombre registrado para el comercio es: {nombre_comercio_usuario}")
     numero_tel_comercio = input("Número telefónico del comercio: ")
+    print (f"el numero registrado para el comercio es: {numero_tel_comercio}")
     nombre_propietario = input("Nombre del propietario del local: ")
+    print (f"el nombre registrado para el propietario es: {nombre_propietario}")
     locacion_usuario = input("Ubicación del local: ")
+    print (f"la locacion resgistrada es: {locacion_usuario}")
     nuevo_usuario = {
         'correo_usuario': correo_usuario,
         'nombre_comercio_usuario': nombre_comercio_usuario,
@@ -168,7 +172,8 @@ def registrar_usuario():
         'locacion_usuario': locacion_usuario,
         'facturas': [],
         'paquetes': []
-    }
+    } 
+   
     usuarios += [nuevo_usuario]  # Agregar nuevo usuario a la lista
     
     print(salto_linea)

@@ -1,4 +1,4 @@
-
+import random
 # Base de datos de usuarios como lista
 usuarios = []
 
@@ -44,8 +44,9 @@ def submenu_usuario(usuario_actual):
         print("1. Registrar factura electrónica")
         print("2. Crear paquete")
         print("3. Rastreo de paquetes")
-        print("4. Volver al menú principal")
-        opcion_submenu = input("\nSeleccione una opción (1/2/3/4): ")
+        print("4. Mostrar estadísticas")
+        print("5. Volver al menú principal")
+        opcion_submenu = input("\nSeleccione una opción (1/2/3/4/5): ")
         
         if opcion_submenu == '1':
             registrar_factura(usuario_actual)
@@ -54,9 +55,11 @@ def submenu_usuario(usuario_actual):
         elif opcion_submenu == '3':
             rastrear_paquete(usuario_actual)
         elif opcion_submenu == '4':
+            mostrar_estadisticas(usuario_actual)
+        elif opcion_submenu == '5':
             break
         else:
-            print("\nOpción no válida ❌. Inténtelo de nuevo.")
+            print("\nOpción no válida. Inténtelo de nuevo.")
 
 def registrar_factura(usuario_actual):
     print("\n============ Seleccione tipo de cédula ============\n")
@@ -71,7 +74,7 @@ def registrar_factura(usuario_actual):
     elif tipo_cedula == '3':
         tipo_cedula_esc = "Jurídica"
     else:
-        print("\nOpción no válida ❌, se procede a asignar la cédula nacional por defecto.\n")
+        print("\nOpción no válida , se procede a asignar la cédula nacional por defecto.\n")
         tipo_cedula_esc = "Nacional"
     
     numero_cedula_factura = input("Número de cédula: ")
@@ -130,7 +133,6 @@ def crear_paquete(usuario_actual):
         print("Monto del Cobro: 0")
     print(borde_inferior)
 #----------------------------------------------------------------------------------------------------------------
-import random
 def rastrear_paquete(usuario_actual):
     numero_guia_buscado = input("Ingrese el número de guía: ")
     paquete_encontrado = ''
@@ -157,12 +159,13 @@ def registrar_usuario():
             print(salto_linea)
     
     nombre_comercio_usuario = input("Nombre del comercio: ")
-    print (f"el nombre registrado para el comercio es: {nombre_comercio_usuario}")
     numero_tel_comercio = input("Número telefónico del comercio: ")
-    print (f"el numero registrado para el comercio es: {numero_tel_comercio}")
     nombre_propietario = input("Nombre del propietario del local: ")
-    print (f"el nombre registrado para el propietario es: {nombre_propietario}")
     locacion_usuario = input("Ubicación del local: ")
+    print(salto_linea)
+    print (f"el nombre registrado para el comercio es: {nombre_comercio_usuario}")
+    print (f"el numero registrado para el comercio es: {numero_tel_comercio}")
+    print (f"el nombre registrado para el propietario es: {nombre_propietario}")
     print (f"la locacion resgistrada es: {locacion_usuario}")
     nuevo_usuario = {
         'correo_usuario': correo_usuario,
@@ -181,6 +184,23 @@ def registrar_usuario():
     print(" " * 13 + "Usuario registrado con éxito.")
     print(borde_inferior)
 
+def mostrar_estadisticas(usuario_actual):
+    cantidad_envios = 0
+    monto_total_cobro = 0
+
+    for paquete in usuario_actual['paquetes']:
+        cantidad_envios += 1 
+        if paquete['cobro_contra_entrega']:
+            monto_total_cobro += int(paquete['cobro_contra_entrega'])
+
+    print(salto_linea)
+    print(borde_superior)
+    print(" " * 17 + "Estadísticas de Usuario")
+    print(borde_inferior)
+    print("Cantidad de envíos realizados: " + str(cantidad_envios))
+    print("Monto total de cobro: " + str(monto_total_cobro) +" colones")
+    print(borde_inferior)
+    
 def main():
     mensaje_bienvenida()
 

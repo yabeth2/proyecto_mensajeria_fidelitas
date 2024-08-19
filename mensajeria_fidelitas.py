@@ -132,7 +132,7 @@ def crear_paquete(usuario_actual):
     else:
         print("Monto del Cobro: 0")
     print(borde_inferior)
-#----------------------------------------------------------------------------------------------------------------
+
 def rastrear_paquete(usuario_actual):
     numero_guia_buscado = input("Ingrese el número de guía: ")
     paquete_encontrado = ''
@@ -147,7 +147,7 @@ def rastrear_paquete(usuario_actual):
         print(f"El estado del paquete {numero_guia_buscado} es: {estado_paquete}")   
     else: 
         print("Paquete no encontrado")
-#------------------------------------------------------------------------------------------------------------------        
+     
     
 def registrar_usuario():
     global usuarios
@@ -187,11 +187,19 @@ def registrar_usuario():
 def mostrar_estadisticas(usuario_actual):
     cantidad_envios = 0
     monto_total_cobro = 0
+    lista_paquetes_enviados = []
+    cantidad_paquetes_tel = {}
 
     for paquete in usuario_actual['paquetes']:
         cantidad_envios += 1 
         if paquete['cobro_contra_entrega']:
             monto_total_cobro += int(paquete['cobro_contra_entrega'])
+        lista_paquetes_enviados.append(paquete['numero_guia'])
+        tel = paquete['telefono_destinatario']
+        if tel in cantidad_paquetes_tel:
+            cantidad_paquetes_tel[tel] += 1
+        else:
+            cantidad_paquetes_tel[tel] =1
 
     print(salto_linea)
     print(borde_superior)
@@ -199,6 +207,12 @@ def mostrar_estadisticas(usuario_actual):
     print(borde_inferior)
     print("Cantidad de envíos realizados: " + str(cantidad_envios))
     print("Monto total de cobro: " + str(monto_total_cobro) +" colones")
+    print("\nLista de paquetes enviados:")
+    for numero_guia in lista_paquetes_enviados:
+        print(f"- {numero_guia}")
+    print("\nCantidad de paquetes por número de teléfono:")
+    for tel, cantidad in cantidad_paquetes_tel.items():
+        print(f"- Teléfono: {tel}, cantidad: {cantidad}")
     print(borde_inferior)
     
 def main():

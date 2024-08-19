@@ -189,6 +189,8 @@ def mostrar_estadisticas(usuario_actual):
     monto_total_cobro = 0
     lista_paquetes_enviados = []
     cantidad_paquetes_tel = {}
+    cantidad_paquetes_ced = {}
+
 
     for paquete in usuario_actual['paquetes']:
         cantidad_envios += 1 
@@ -200,6 +202,10 @@ def mostrar_estadisticas(usuario_actual):
             cantidad_paquetes_tel[tel] += 1
         else:
             cantidad_paquetes_tel[tel] =1
+        ced = paquete['numero_cedula_destinatario']
+        if ced in cantidad_paquetes_ced:
+            cantidad_paquetes_ced[ced] += 1
+        else: cantidad_paquetes_ced[ced] = 1
 
     print(salto_linea)
     print(borde_superior)
@@ -213,6 +219,9 @@ def mostrar_estadisticas(usuario_actual):
     print("\nCantidad de paquetes por número de teléfono:")
     for tel, cantidad in cantidad_paquetes_tel.items():
         print(f"- Teléfono: {tel}, cantidad: {cantidad}")
+    print("\nCantidad de Paquetes por Número de Cédula:")
+    for ced, cantidad in cantidad_paquetes_ced.items():
+        print(f"- Cédula: {ced}, Cantidad: {cantidad}")
     print(borde_inferior)
     
 def main():

@@ -11,6 +11,27 @@ def mensaje_bienvenida():
     print(" " * 10 + "BIENVENIDO A MENSAJERÍA FIDÉLITAS")
     print(borde_inferior)
 
+def main():
+    mensaje_bienvenida()
+
+    while True:
+        menu_principal()
+        opcion_principal = input("\nSeleccione una opción (1/2/3): ")
+        
+        if opcion_principal == '1':
+            iniciar_sesion()
+        elif opcion_principal == '2':
+            registrar_usuario()
+        elif opcion_principal == '3':
+            print('\nSaliendo de la aplicación...')
+            print(borde_superior)
+            print(" " * 5 + "Gracias por usar Fidélitas. ¡Hasta pronto!")
+            print(borde_inferior)
+
+            break
+        else:
+            print("\nError ❌: Por favor ingrese una opción disponible.")
+
 def menu_principal():
     print("\n================= Menú Principal ==================\n")
     print("1. Iniciar sesión")
@@ -37,6 +58,41 @@ def iniciar_sesion():
         submenu_usuario(usuario_actual)
     else:
         print("\nEl usuario con correo electrónico " + '"' + correo_usuario + '"' + " no está registrado.")
+
+def registrar_usuario():
+    global usuarios
+    correo_usuario = ''
+    while correo_usuario == '':
+        correo_usuario = input("Correo Electrónico: ")
+        if correo_usuario == '':
+            print("Correo electrónico inválido. Inténtelo de nuevo.")
+            print(salto_linea)
+    
+    nombre_comercio_usuario = input("Nombre del comercio: ")
+    numero_tel_comercio = input("Número telefónico del comercio: ")
+    nombre_propietario = input("Nombre del propietario del local: ")
+    locacion_usuario = input("Ubicación del local: ")
+    print(salto_linea)
+    print (f"el nombre registrado para el comercio es: {nombre_comercio_usuario}")
+    print (f"el numero registrado para el comercio es: {numero_tel_comercio}")
+    print (f"el nombre registrado para el propietario es: {nombre_propietario}")
+    print (f"la locacion resgistrada es: {locacion_usuario}")
+    nuevo_usuario = {
+        'correo_usuario': correo_usuario,
+        'nombre_comercio_usuario': nombre_comercio_usuario,
+        'numero_tel_comercio': numero_tel_comercio,
+        'nombre_propietario': nombre_propietario,
+        'locacion_usuario': locacion_usuario,
+        'facturas': [],
+        'paquetes': []
+    } 
+   
+    usuarios += [nuevo_usuario]  # Agregar nuevo usuario a la lista
+    
+    print(salto_linea)
+    print(borde_superior)
+    print(" " * 13 + "Usuario registrado con éxito.")
+    print(borde_inferior)
 
 def submenu_usuario(usuario_actual):
     while True:
@@ -147,43 +203,7 @@ def rastrear_paquete(usuario_actual):
         print(f"El estado del paquete {numero_guia_buscado} es: {estado_paquete}")   
     else: 
         print("Paquete no encontrado")
-     
     
-def registrar_usuario():
-    global usuarios
-    correo_usuario = ''
-    while correo_usuario == '':
-        correo_usuario = input("Correo Electrónico: ")
-        if correo_usuario == '':
-            print("Correo electrónico inválido ❌. Inténtelo de nuevo.")
-            print(salto_linea)
-    
-    nombre_comercio_usuario = input("Nombre del comercio: ")
-    numero_tel_comercio = input("Número telefónico del comercio: ")
-    nombre_propietario = input("Nombre del propietario del local: ")
-    locacion_usuario = input("Ubicación del local: ")
-    print(salto_linea)
-    print (f"el nombre registrado para el comercio es: {nombre_comercio_usuario}")
-    print (f"el numero registrado para el comercio es: {numero_tel_comercio}")
-    print (f"el nombre registrado para el propietario es: {nombre_propietario}")
-    print (f"la locacion resgistrada es: {locacion_usuario}")
-    nuevo_usuario = {
-        'correo_usuario': correo_usuario,
-        'nombre_comercio_usuario': nombre_comercio_usuario,
-        'numero_tel_comercio': numero_tel_comercio,
-        'nombre_propietario': nombre_propietario,
-        'locacion_usuario': locacion_usuario,
-        'facturas': [],
-        'paquetes': []
-    } 
-   
-    usuarios += [nuevo_usuario]  # Agregar nuevo usuario a la lista
-    
-    print(salto_linea)
-    print(borde_superior)
-    print(" " * 13 + "Usuario registrado con éxito.")
-    print(borde_inferior)
-
 def mostrar_estadisticas(usuario_actual):
     cantidad_envios = 0
     monto_total_cobro = 0
@@ -223,26 +243,5 @@ def mostrar_estadisticas(usuario_actual):
     for ced, cantidad in cantidad_paquetes_ced.items():
         print(f"- Cédula: {ced}, Cantidad: {cantidad}")
     print(borde_inferior)
-    
-def main():
-    mensaje_bienvenida()
-
-    while True:
-        menu_principal()
-        opcion_principal = input("\nSeleccione una opción (1/2/3): ")
-        
-        if opcion_principal == '1':
-            iniciar_sesion()
-        elif opcion_principal == '2':
-            registrar_usuario()
-        elif opcion_principal == '3':
-            print('\nSaliendo de la aplicación...')
-            print(borde_superior)
-            print(" " * 5 + "Gracias por usar Fidélitas. ¡Hasta pronto!")
-            print(borde_inferior)
-
-            break
-        else:
-            print("\nError ❌: Por favor ingrese una opción disponible.")
 
 main()
